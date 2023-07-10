@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>3D Scene</title>
+    <style>
+        body { margin: 0; }
+        canvas { display: block; }
+    </style>
+</head>
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/110/three.min.js"></script>
+    
+    <script type="module">
+        import { OrbitControls } from "https://unpkg.com/three@0.112/examples/jsm/controls/OrbitControls.js";
+        // Create a scene
+        const scene = new THREE.Scene();
+
+        // Create a camera
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.z = 5;
+
+        // Create a renderer
+        const renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        // Create materials
+        const chairMaterial = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+        const cubeMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000 });
+
+        // Create chair geometry and mesh
+        const chairGeometry = new THREE.BoxGeometry(1, 0.1, 1);
+        const legGeometry = new THREE.BoxGeometry(0.1, 1, 0.1);
+        const backrestGeometry = new THREE.BoxGeometry(0.8,1, 0.1)
+
+        // Create chair 1
+        const chairMesh1 = new THREE.Mesh(chairGeometry, chairMaterial);
+        chairMesh1.position.x = -1.5;
+        scene.add(chairMesh1);
+
+        const legMesh1_1 = new THREE.Mesh(legGeometry, chairMaterial);
+        legMesh1_1.position.set(-0.4, -0.5, -0.4);
+        chairMesh1.add(legMesh1_1);
+
+        const legMesh1_2 = new THREE.Mesh(legGeometry, chairMaterial);
+        legMesh1_2.position.set(0.4, -0.5, -0.4);
+        chairMesh1.add(legMesh1_2);
+
+        const legMesh1_3 = new THREE.Mesh(legGeometry, chairMaterial);
+        legMesh1_3.position.set(-0.4, -0.5, 0.4);
+        chairMesh1.add(legMesh1_3);
+
+        const legMesh1_4 = new THREE.Mesh(legGeometry, chairMaterial);
+        legMesh1_4.position.set(0.4, -0.5, 0.4);
+        chairMesh1.add(legMesh1_4);
+
+        const backrestMesh1 = new THREE.Mesh(backrestGeometry, chairMaterial);
+        backrestMesh1.position.y = 0.40;
+        backrestMesh1.position.z = -0.4;
+        chairMesh1.add(backrestMesh1);
+
+        // Create chair 2
+        const chairMesh2 = new THREE.Mesh(chairGeometry, chairMaterial);
+        chairMesh2.position.x = 1.5;
+        scene.add(chairMesh2);
+
+        const legMesh2_1 = new THREE.Mesh(legGeometry, chairMaterial);
+        legMesh2_1.position.set(-0.4, -0.5, -0.4);
+        chairMesh2.add(legMesh2_1);
+
+        const legMesh2_2 = new THREE.Mesh(legGeometry, chairMaterial);
+        legMesh2_2.position.set(0.4, -0.5, -0.4);
+        chairMesh2.add(legMesh2_2);
+
+        const legMesh2_3 = new THREE.Mesh(legGeometry, chairMaterial);
+        legMesh2_3.position.set(-0.4, -0.5, 0.4);
+        chairMesh2.add(legMesh2_3);
+
+        const legMesh2_4 = new THREE.Mesh(legGeometry, chairMaterial);
+        legMesh2_4.position.set(0.4, -0.5, 0.4);
+        chairMesh2.add(legMesh2_4);
+
+        const backrestMesh2 = new THREE.Mesh(backrestGeometry, chairMaterial);
+        backrestMesh2.position.y = 0.40;
+        backrestMesh2.position.z = -0.4;
+        chairMesh2.add(backrestMesh2);
+        // Create cube geometry and mesh
+        const cubeGeometry = new THREE.BoxGeometry(0.5, 0.5, 0.5);
+        const cubeMesh1 = new THREE.Mesh(cubeGeometry, cubeMaterial);
+        cubeMesh1.position.y = 0.4;
+        chairMesh1.add(cubeMesh1);
+
+        const cubeMesh2 = new THREE.Mesh(cubeGeometry, cubeMaterial);
+        cubeMesh2.position.y = 0.4;
+        chairMesh2.add(cubeMesh2);
+
+        // Set up controls
+        const controls = new OrbitControls(camera, renderer.domElement);
+
+        // Animation variables
+        let rotationSpeed = 0.02;
+
+        // Animate the scene
+        function animate() {
+            requestAnimationFrame(animate);
+
+            // Rotate the chairs
+            chairMesh1.rotation.y += rotationSpeed;
+            chairMesh2.rotation.y -= rotationSpeed;
+
+            // Update the controls
+            controls.update();
+
+            // Render the scene
+            renderer.render(scene, camera);
+        }
+        animate();
+    </script>
+</body>
+</html>
